@@ -1,0 +1,16 @@
+<article>
+  <h1><%= @restaurant.name %></h1>
+  <hr>
+  <p><%= @restaurant.address %></p>
+</article>
+
+<div class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <p class= "list-group-item list-group-item-action"><%= review.content %></p>
+  <% end %>
+</div>
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <%= link_to "Add review", new_restaurant_review_path(@restaurant), class: "btn btn-sm btn-outline-secondary" %>
+  <%= link_to "List", restaurants_path, class: "btn btn-sm btn-outline-secondary" %>
+</div>
