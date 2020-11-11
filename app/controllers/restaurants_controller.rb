@@ -8,6 +8,8 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    # the below line can be added to embed the add review form inside the show page
+    # @review = Review.new
   end
 
   def new
@@ -17,13 +19,17 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.save
-      redirect_to restaurants_path
+      redirect_to restaurant_path(@restaurant)
     else
       render :new
     end
   end
 
   private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :phone_number, :category)
+  end
 
   # def new_article
   #   @restaurant = Restaurant.new
@@ -32,8 +38,4 @@ class RestaurantsController < ApplicationController
   # def find_restaurant
   #   @restaurant = Restaurant.find(params[:id])
   # end
-
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :phone_number, :category)
-  end
 end
